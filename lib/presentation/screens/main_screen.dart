@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home_screen.dart';
+
 class MainScreen extends StatefulWidget {
   final int selectedIndex;
   const MainScreen({super.key, required this.selectedIndex});
@@ -21,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: [
-        Container(),
+        const HomeScreen(),
         Container(
           color: Colors.red,
         ),
