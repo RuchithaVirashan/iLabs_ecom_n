@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui' as ui;
 import 'logic/bloc/cart/cart_bloc.dart';
 import 'logic/bloc/product_list/product_list_bloc.dart';
+import 'logic/cubit/user_data/user_data_cubit.dart';
 import 'presentation/router/app_route.dart';
 import 'presentation/screens/main_screen.dart';
 import 'utils/theme.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
             providers: [
               BlocProvider(create: (_) => ProductListBloc()),
               BlocProvider(create: (_) => CartBloc()),
+              BlocProvider(create: (_) => UserDataCubit()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

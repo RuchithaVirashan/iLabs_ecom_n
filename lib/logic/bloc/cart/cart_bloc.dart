@@ -18,6 +18,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     on<RemoveFromCart>(
         (event, emit) => removeFromCart(emit, event.index, event.context));
+
+    on<ClearCart>((event, emit) => clearCart(emit, event.context));
   }
 
   void addToCart(
@@ -51,11 +53,18 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(CartLoading());
     try {
       cartList.removeAt(index);
-      if (cartList.isEmpty) {
-        emit(CartInitial());
-      } else {
-        emit(CartLoaded(cartList: cartList));
-      }
+      emit(CartLoaded(cartList: cartList));
+    } catch (e) {
+      emit(CartError(message: e.toString()));
+      showErrorDialog(context, e.toString());
+    }
+  }
+
+  void clearCart(Emitter<CartState> emit, BuildContext context) {
+    emit(CartLoading());
+    try {
+      cartList.clear();
+      emit(CartLoaded(cartList: cartList));
     } catch (e) {
       emit(CartError(message: e.toString()));
       showErrorDialog(context, e.toString());

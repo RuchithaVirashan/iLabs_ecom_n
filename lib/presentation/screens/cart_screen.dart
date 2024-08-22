@@ -42,62 +42,64 @@ class _CartScreenState extends State<CartScreen> {
           );
         } else if (state is CartLoaded) {
           List<ProductItem> cartItems = state.cartList;
-          return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: HeaderText(
-                colorR: Colors.black,
-                content: 'Cart',
-                fontSizeR: 18.sp,
-                fontWeightR: FontWeight.bold,
-                textAlignR: TextAlign.center,
-                letterSpace: 6.sp,
-              ),
-            ),
-            body: Padding(
-              padding: EdgeInsets.all(16.w),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: cartItems.length,
-                      itemBuilder: (context, index) {
-                        return CartItemCard(
-                          index: index,
-                          cartItems: cartItems,
-                        );
-                      },
+          return cartItems.isEmpty
+              ? const NoItemMsg()
+              : Scaffold(
+                  appBar: AppBar(
+                    centerTitle: true,
+                    title: HeaderText(
+                      colorR: Colors.black,
+                      content: 'Cart',
+                      fontSizeR: 18.sp,
+                      fontWeightR: FontWeight.bold,
+                      textAlignR: TextAlign.center,
+                      letterSpace: 6.sp,
                     ),
                   ),
-                  SizedBox(height: 8.h),
-                  OrderSummaryDet(cartItems: cartItems),
-                ],
-              ),
-            ),
-            bottomNavigationBar: Visibility(
-              visible: cartItems.isNotEmpty,
-              child: SizedBox(
-                height: 70.h,
-                child: BottomAppBar(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: ButtonWidget(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/checkout');
-                      },
-                      minHeight: 55.h,
-                      buttonName: 'Checkout',
-                      tcolor: Colors.white,
-                      bcolor: const Color(0xFF154478),
-                      borderColor: Colors.white,
-                      radius: 15.r,
-                      fcolor: Colors.grey,
+                  body: Padding(
+                    padding: EdgeInsets.all(16.w),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: cartItems.length,
+                            itemBuilder: (context, index) {
+                              return CartItemCard(
+                                index: index,
+                                cartItems: cartItems,
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        OrderSummaryDet(cartItems: cartItems),
+                      ],
                     ),
                   ),
-                ),
-              ),
-            ),
-          );
+                  bottomNavigationBar: Visibility(
+                    visible: cartItems.isNotEmpty,
+                    child: SizedBox(
+                      height: 70.h,
+                      child: BottomAppBar(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: ButtonWidget(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/checkout');
+                            },
+                            minHeight: 55.h,
+                            buttonName: 'Checkout',
+                            tcolor: Colors.white,
+                            bcolor: const Color(0xFF154478),
+                            borderColor: Colors.white,
+                            radius: 15.r,
+                            fcolor: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
         }
         return Container();
       },
