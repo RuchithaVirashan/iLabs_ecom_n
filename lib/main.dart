@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui' as ui;
-import 'logic/bloc/product_list/bloc/product_list_bloc.dart';
-import 'presentation/routes/app_route.dart';
+import 'logic/bloc/cart/cart_bloc.dart';
+import 'logic/bloc/product_list/product_list_bloc.dart';
+import 'presentation/router/app_route.dart';
 import 'presentation/screens/main_screen.dart';
 import 'utils/theme.dart';
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
           return MultiBlocProvider(
             providers: [
               BlocProvider(create: (_) => ProductListBloc()),
+              BlocProvider(create: (_) => CartBloc()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

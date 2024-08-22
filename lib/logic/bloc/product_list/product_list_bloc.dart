@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../data/models/product_item_model.dart';
-import '../../../../data/repositories/product_list_repo.dart';
+import '../../../data/models/product_item_model.dart';
+import '../../../data/repositories/product_list_repo.dart';
 
 part 'product_list_event.dart';
 part 'product_list_state.dart';

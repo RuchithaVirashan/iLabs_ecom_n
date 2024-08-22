@@ -1,19 +1,22 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../data/models/product_item_model.dart';
+import '../../../logic/bloc/cart/cart_bloc.dart';
 import '../common/button.dart';
 import '../common/default_text.dart';
+import '../status/error.dart';
+import '../status/sucess.dart';
 
 class ItemCard extends StatelessWidget {
-  final ProductItem prod;
-  final void Function()? onPressed;
+  final ProductItem product;
 
   const ItemCard({
     super.key,
-    required this.prod,
-    required this.onPressed,
+    required this.product,
   });
 
   @override
@@ -26,7 +29,7 @@ class ItemCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          onPressed!();
+          Navigator.pushNamed(context, '/item_details', arguments: product);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -39,7 +42,7 @@ class ItemCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(14),
                 child: Image.network(
-                  prod.image,
+                  product.image,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: 100.h,
@@ -48,7 +51,7 @@ class ItemCard extends StatelessWidget {
               SizedBox(height: 8.h),
               DefaultText(
                 colorR: const Color.fromRGBO(25, 30, 29, 1),
-                content: prod.name,
+                content: product.name,
                 fontSizeR: 16.sp,
                 fontWeightR: FontWeight.w600,
                 textAlignR: TextAlign.start,
@@ -56,7 +59,7 @@ class ItemCard extends StatelessWidget {
               SizedBox(height: 8.h),
               DefaultText(
                 colorR: const Color.fromRGBO(25, 30, 29, 1),
-                content: '\$${prod.price.toStringAsFixed(2)}',
+                content: '\$${product.price.toStringAsFixed(2)}',
                 fontSizeR: 14.sp,
                 fontWeightR: FontWeight.w500,
                 textAlignR: TextAlign.start,
@@ -64,8 +67,8 @@ class ItemCard extends StatelessWidget {
               const Spacer(),
               ButtonWidget(
                 onPressed: () async {
-                  // final cartBloc = BlocProvider.of<CartBloc>(context);
-                  // cartBloc.add(AddToCart(prod[index], context));
+                  BlocProvider.of<CartBloc>(context)
+                      .add(AddToCart(product: product));
                 },
                 minHeight: 30.h,
                 buttonName: 'Add to Cart',

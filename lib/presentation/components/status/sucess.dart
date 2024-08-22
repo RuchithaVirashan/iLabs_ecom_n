@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Future<void> showSuccessDialog(BuildContext context, String content) async {
+Future<void> showSuccessDialog(
+  BuildContext context,
+  String content,
+  String? routeName,
+) async {
   ScreenUtil.init(context);
 
   WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -37,6 +41,9 @@ Future<void> showSuccessDialog(BuildContext context, String content) async {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
+                if (routeName != null) {
+                  Navigator.of(context).pushNamed(routeName);
+                }
               },
               child: const Text('Okay',
                   style: TextStyle(color: Color(0xFF157821))),
