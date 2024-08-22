@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'cart_screen.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,32 +22,33 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: [
-        const HomeScreen(),
-        Container(
-          color: Colors.red,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: [
+          const HomeScreen(),
+          const CartScreen(),
+        ][selectedIndex],
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: selectedIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+              selectedIcon: Icon(Icons.home),
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.shopping_cart_outlined),
+              label: 'Cart',
+              selectedIcon: Icon(Icons.shopping_cart),
+            ),
+          ],
         ),
-      ][selectedIndex],
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: selectedIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-            selectedIcon: Icon(Icons.home),
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.shopping_cart_outlined),
-            label: 'Cart',
-            selectedIcon: Icon(Icons.shopping_cart),
-          ),
-        ],
       ),
     );
   }
