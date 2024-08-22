@@ -61,8 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: BlocBuilder<ProductListBloc, ProductListState>(
                         builder: (context, state) {
-                          log('build state product list: $state');
-
                           if (state is ProductListInitial) {
                             BlocProvider.of<ProductListBloc>(context)
                                 .add(FetchProductList());
