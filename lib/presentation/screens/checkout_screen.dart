@@ -156,10 +156,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       colorR: Colors.black,
                       textAlignR: TextAlign.start,
                     ),
-                    BlocSelector<CartBloc, CartState, CartState>(
-                      selector: (state) {
-                        return state;
-                      },
+                    BlocBuilder<CartBloc, CartState>(
                       builder: (context, state) {
                         return DefaultText(
                           content: '\$${getTotalPrice().toStringAsFixed(2)}',

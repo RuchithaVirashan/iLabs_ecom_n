@@ -35,15 +35,14 @@ class _MainScreenState extends State<MainScreen> {
           const HomeScreen(),
           const CartScreen(),
         ][selectedIndex],
-        bottomNavigationBar: BlocSelector<CartBloc, CartState, CartState>(
+        bottomNavigationBar: BlocSelector<CartBloc, CartState, int>(
           selector: (state) {
-            return state;
-          },
-          builder: (context, state) {
-            int cartItemCount = 0;
             if (state is CartLoaded) {
-              cartItemCount = state.cartList.length;
+              return state.cartList.length;
             }
+            return 0;
+          },
+          builder: (context, cartItemCount) {
             return NavigationBar(
               selectedIndex: selectedIndex,
               onDestinationSelected: (index) {
@@ -52,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
                 });
               },
               destinations: [
-                NavigationDestination(
+                const NavigationDestination(
                   icon: Icon(Icons.home_outlined),
                   label: 'Home',
                   selectedIcon: Icon(Icons.home),
