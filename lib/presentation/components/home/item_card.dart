@@ -68,7 +68,7 @@ class ItemCard extends StatelessWidget {
               ButtonWidget(
                 onPressed: () async {
                   BlocProvider.of<CartBloc>(context)
-                      .add(AddToCart(product: product));
+                      .add(AddToCart(product: product, context: context));
                 },
                 minHeight: 30.h,
                 buttonName: 'Add to Cart',

@@ -78,7 +78,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
             child: ButtonWidget(
               onPressed: () async {
                 BlocProvider.of<CartBloc>(context)
-                    .add(AddToCart(product: widget.product));
+                    .add(AddToCart(product: widget.product, context: context));
               },
               minHeight: 55.h,
               buttonName: 'Add to Cart',
